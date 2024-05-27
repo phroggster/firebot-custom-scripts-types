@@ -1,6 +1,15 @@
 export type TwitchChat = {
     /** Whether or not the streamer is currently connected. */
-    chatIsConnected(): boolean;
+    get chatIsConnected(): boolean;
+    /**
+     * Adds the listener function to the end of the listeners array for the event named eventName.
+     * @param eventName The name of the event.
+     * @param listener The callback function.
+     */
+    on<ExpectedArgs extends Array<any> = [], ReturnPayload = void>(
+        eventName: string | symbol,
+        listener: (...args: ExpectedArgs[]) => ReturnPayload
+    );
     /**
      * Sends the message as the bot if available, otherwise as the streamer.
      * If a whisperTarget is provided, the message will be whispered.
