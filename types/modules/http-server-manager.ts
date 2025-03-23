@@ -1,6 +1,5 @@
-import EventEmitter from "events";
-import { Express } from "express";
-import { Server } from "http";
+import { Express, Request, Response } from "express";
+import http from "http";
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 type HttpMethod =
@@ -18,19 +17,19 @@ export type HttpServerManager = {
     sendToOverlay(
         eventName: string,
         meta?: Record<string, unknown>,
-        overlayInstance?: any
+        overlayInstance?: string
     ): void;
     registerCustomRoute(
         prefix: string,
         route: string,
         method: HttpMethod,
-        callback: Function
+        callback: (req: Request, res: Response) => Promise<void> | void
     ): boolean;
     unregisterCustomRoute(
         prefix: string,
         route: string,
         method: HttpMethod
     ): boolean;
-    startHttpServer(name: string, port: number, instance: Express): Server;
+    startHttpServer(name: string, port: number, instance: Express): http.Server;
     stopHttpServer(name: string): boolean;
 };
