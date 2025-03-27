@@ -60,6 +60,16 @@ export type HttpServerManager = {
         callback: (data: TData) => Promise<void> | void
     ): boolean;
 
+    /** Trigger a custom event in the WebSocket server manager.
+     * @template TEvent The type of event data to send with the event.
+     * @param eventType The name of the custom-event to trigger.
+     * @param payload The associated data for the event.
+     */
+    triggerCustomWebSocketEvent<TEvent extends object = object>(
+        eventType: string,
+        payload?: TEvent
+    ): void;
+
     /** Unregister a custom route from the HTTP server manager. The full URL to invoke the callback
      * would be similar to: `http://localhost:7472/integrations/${prefix}/${route}`
      * @param prefix The initial portion of the URL, which should generally be unique for a given
