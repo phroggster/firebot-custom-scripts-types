@@ -1,5 +1,6 @@
 import { Express, Request, Response } from "express";
 import http from "http";
+import { TypedEmitter } from "tiny-typed-emitter";
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 type HttpMethod =
@@ -21,7 +22,12 @@ export interface InvokePluginWebsocketMessage<TData = unknown> {
     data?: TData;
 };
 
-export type HttpServerManager = {
+interface ServerManagerEvents {
+    "overlay-connected"(instanceName?: string): void;
+    "overlay-event"<TEvent = unknown>(event: TEvent): void;
+}
+
+export type HttpServerManager = TypedEmitter<ServerManagerEvents> & {
     /** Register a custom route with the HTTP server manager. The full URL to invoke the callback
      * would be similar to: `http://localhost:7472/integrations/${prefix}/${route}`
      * @param prefix The initial portion of the URL, which should generally be unique for a given
