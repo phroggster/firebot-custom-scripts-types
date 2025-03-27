@@ -22,12 +22,6 @@ export interface InvokePluginWebsocketMessage<TData = unknown> {
 };
 
 export type HttpServerManager = {
-    sendToOverlay<TData extends Record<string, unknown> = Record<string, unknown>>(
-        eventName: string,
-        meta?: TData,
-        overlayInstance?: string
-    ): void;
-
     /** Register a custom route with the HTTP server manager. The full URL to invoke the callback
      * would be similar to: `http://localhost:7472/integrations/${prefix}/${route}`
      * @param prefix The initial portion of the URL, which should generally be unique for a given
@@ -59,6 +53,15 @@ export type HttpServerManager = {
         pluginName: string,
         callback: (data: TData) => Promise<void> | void
     ): boolean;
+
+    sendToOverlay<TData extends Record<string, unknown> = Record<string, unknown>>(
+        eventName: string,
+        meta?: TData,
+        overlayInstance?: string
+    ): void;
+
+    startHttpServer(name: string, port: number, instance: Express): http.Server;
+    stopHttpServer(name: string): boolean;
 
     /** Trigger a custom event in the WebSocket server manager.
      * @template TEvent The type of event data to send with the event.
@@ -94,7 +97,4 @@ export type HttpServerManager = {
     unregisterCustomWebSocketListener(
         pluginName: string
     ): boolean;
-
-    startHttpServer(name: string, port: number, instance: Express): http.Server;
-    stopHttpServer(name: string): boolean;
 };
