@@ -1,18 +1,20 @@
 {
     "name": "@crowbartools/firebot-custom-scripts-types",
     "version": "5.64.0",
-    "description": "Types for Firebot's Custom Scripts",
+    "private": true,
+    "description": "Extended custom types for Firebot Custom Scripts",
     "main": "",
     "scripts": {
         "lint": "npm run prettier:check",
-        "prettier:check": "prettier --check '**/*.{json,ts}'",
-        "prettier:format": "prettier --write '**/*.{json,ts}'"
+        "prettier:check": "prettier --check \"**/*.{json,ts}\"",
+        "prettier:format": "prettier --write \"**/*.{json,ts}\""
     },
     "author": "ebiggz",
     "contributors": [
         "pirak",
         "patchtechtwitch",
-        "DeathRight (BigPimpinVoidkin)"
+        "DeathRight (BigPimpinVoidkin)",
+        "phroggie"
     ],
     "license": "ISC",
     "types": "types/index.d.ts",
@@ -30,7 +32,7 @@
         "tiny-typed-emitter": "^2.1.0"
     },
     "volta": {
-        "node": "20.18.1",
-        "npm": "10.8.1"
+        "node": "20.18.3",
+        "npm": "11.4.2"
     }
 }
