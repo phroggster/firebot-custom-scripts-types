@@ -1,21 +1,9 @@
+import { Currency } from "./currency-access";
 import { FirebotUser } from "./user-db";
 
 type CurrencyAdjustType = "set" | "adjust";
 
-type Currency = {
-    id: string;
-    name: string;
-    active: boolean;
-    limit: number;
-    transfer: "Allow" | "Disallow";
-    interval: number;
-    payout: number;
-    /** Offline payout */
-    offline: number;
-    /** Maps user role IDs to the amount of bonus payout they receive. */
-    bonus: Record<string, number>;
-};
-
+/** @deprecated */
 export type CurrencyDB = {
     adjustCurrencyForUser: (
         username: string,

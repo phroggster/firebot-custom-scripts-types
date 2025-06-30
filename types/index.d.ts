@@ -1,10 +1,12 @@
-import * as FS from "fs";
+import * as FSExtra from "fs-extra";
 import * as Path from "path";
 import ChildProcess from "child_process";
 import Moment from "moment";
+import { JsonDB } from "node-json-db";
 import { FirebotSettings } from "./settings";
 import { CommandManager } from "./modules/command-manager";
 import { CounterManager } from "./modules/counter-manager";
+import { CurrencyAccess } from "./modules/currency-access";
 import { CurrencyDB } from "./modules/currency-db";
 import { CurrencyManager } from "./modules/currency-manager";
 import { CustomVariableManager } from "./modules/custom-variable-manager";
@@ -62,7 +64,7 @@ export type ScriptModules = {
     commandManager: CommandManager;
     conditionManager: ConditionManager;
     counterManager: CounterManager;
-    currencyDb: CurrencyDB;
+    currencyAccess: CurrencyAccess;
     currencyManager: CurrencyManager;
     customVariableManager: CustomVariableManager;
     effectManager: EffectManager;
@@ -72,12 +74,12 @@ export type ScriptModules = {
     eventManager: EventManager;
     firebotRolesManager: FirebotRolesManager;
     frontendCommunicator: FrontendCommunicator;
-    fs: typeof FS;
+    fs: typeof FSExtra;
     gameManager: GameManager;
     howler: unknown;
     httpServer: HttpServerManager;
     integrationManager: IntegrationManager;
-    JsonDb: unknown;
+    JsonDb: typeof JsonDB;
     logger: Logger;
     moment: typeof Moment;
     notificationManager: NotificationManager;
@@ -88,6 +90,8 @@ export type ScriptModules = {
     resourceTokenManager: ResourceTokenManager;
     request: unknown;
     restrictionManager: RestrictionManager;
+    /** Added in Firebot v5.64/65 (#3180) */
+    scriptDataDir?: string;
     spawn: typeof ChildProcess["spawn"];
     twitchApi: TwitchApi;
     twitchChat: TwitchChat;
@@ -97,6 +101,8 @@ export type ScriptModules = {
     utils: Utils;
     /** Remove the below line after we have all modules defined */
     [x: string]: unknown;
+    /** @deprecated */
+    currencyDb: CurrencyDB;
 };
 
 type ValidParamKeys<T> = {
@@ -112,12 +118,14 @@ export type RunRequest<P extends Record<string, unknown>> = {
     modules: ScriptModules;
     firebot: {
         accounts: {
-            streamer: UserAccount;
-            bot: UserAccount;
+            streamer?: UserAccount;
+            bot?: UserAccount;
         };
         settings: FirebotSettings;
         version: string;
     };
+    /** Added in Firebot v5.64/65 (#3180); points to a "/script-data/${script-name}" subfolder of Firebot user profile. */
+    scriptDataDir?: string;
     trigger: Effects.Trigger;
 };
 
@@ -136,9 +144,7 @@ export namespace Firebot {
 
         getDefaultParameters(): ParametersConfig<P>;
 
-        /**
-         * Called at app start and when the script is added to Firebot
-         */
+        /** Called at app start and when the script is added to Firebot */
         run(
             runRequest: RunRequest<P>
         ):
@@ -147,15 +153,11 @@ export namespace Firebot {
             | ScriptReturnObject
             | Promise<ScriptReturnObject>;
 
-        /**
-         * Called when the user saves script parameters
-         */
-        parametersUpdated?(parameters: P): void;
+        /** Called when the user saves script parameters */
+        parametersUpdated?(parameters: P): void | PromiseLike<void>;
 
-        /**
-         * Called when the script is removed from Firebot. Use this to clean up registered effects/connections/etc
-         */
-        stop?(): void;
+        /** Called when the script is removed from Firebot. Use this to clean up registered effects/connections/etc */
+        stop?(): void | PromiseLike<void>;
     };
 
     type EffectType<EffectModel> = Effects.EffectType<EffectModel>;
