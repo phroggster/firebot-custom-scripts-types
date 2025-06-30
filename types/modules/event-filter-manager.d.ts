@@ -2,7 +2,7 @@ type EventData = {
     eventSourceId: string;
     eventId: string;
     eventMeta: Record<string, unknown>;
-}
+};
 
 type FilterEvent = Omit<EventData, "eventMeta">;
 
@@ -14,7 +14,7 @@ export type FilterSettings = {
 export type PresetValue = {
     value: any;
     display: string;
-}
+};
 
 export type EventFilter = {
     id: string;
@@ -24,11 +24,17 @@ export type EventFilter = {
     comparisonTypes: string[];
     valueType: "text" | "number" | "preset";
     presetValues?(...args: any[]): Promise<PresetValue[]> | PresetValue[];
-    valueIsStillValid?(filterSettings: FilterSettings, ...args: any[]): Promise<boolean> | boolean;
-    getSelectedValueDisplay?(filterSettings: FilterSettings, ...args: any[]): Promise<string> | string;
+    valueIsStillValid?(
+        filterSettings: FilterSettings,
+        ...args: any[]
+    ): Promise<boolean> | boolean;
+    getSelectedValueDisplay?(
+        filterSettings: FilterSettings,
+        ...args: any[]
+    ): Promise<string> | string;
     predicate(
         filterSettings: FilterSettings,
-        eventData: EventData,
+        eventData: EventData
     ): Promise<boolean> | boolean;
 };
 
