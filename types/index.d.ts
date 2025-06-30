@@ -106,6 +106,8 @@ export type ScriptModules = {
     /** Remove the below line after we have all modules defined */
     [x: string]: unknown;
 
+    /** @deprecated @see {@link ScriptModules.twitchChat} */
+    chat: unknown;
     /** @deprecated @see {@link ScriptModules.currencyAccess} @see {@link ScriptModules.currencyManagerNew} */
     currencyDb: CurrencyDB;
     /** @deprecated @see {@link ScriptModules.currencyCommandManager} @see {@link ScriptModules.currencyManagerNew} */
