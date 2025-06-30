@@ -1,8 +1,8 @@
-type FirebotUser = {
+export type FirebotViewer = {
     readonly _id: string;
     username: string;
-    displayName: string;
-    profilePicUrl: string;
+    displayName?: string;
+    profilePicUrl?: string;
     twitch: boolean;
     twitchRoles: string[];
     online: boolean;
@@ -16,18 +16,17 @@ type FirebotUser = {
     chatMessages: number;
     disableAutoStatAccrual: boolean;
     disableActiveUserList: boolean;
-    /**
-     * Allows storing arbitrary objects as additional data in key-value pairs into the user object in the database.
-     */
+    /** Allows storing arbitrary objects as additional data in key-value pairs into the user object in the database. */
     metadata: Record<string, any>;
-    /**
-     * Maps currency-id to the amount the user has.
-     */
+    /** Maps currency-id to the amount the user has. */
     currency: Record<string, number>;
+    ranks?: Record<string, string>;
 };
 
 export type UserDb = {
-    getTwitchUserByUsername: (username: string) => Promise<FirebotUser | null>;
+    getTwitchUserByUsername: (
+        username: string
+    ) => Promise<FirebotViewer | null>;
     /**
      * Creates a new user in the database. Returns the created user if successful.
      *
@@ -45,12 +44,12 @@ export type UserDb = {
         profilePicUrl?: string,
         twitchRoles?: string[],
         isOnline?: boolean
-    ) => Promise<FirebotUser | null>;
+    ) => Promise<FirebotViewer | null>;
     /**
      * Updates the given user in the database. Returns true if successful.
      * @param user that should be updated.
      */
-    updateUser: (user: FirebotUser) => Promise<boolean>;
+    updateUser: (user: FirebotViewer) => Promise<boolean>;
     /**
      * Adds some metadata to a user.
      * @param username of the user that should be updated.
@@ -77,14 +76,14 @@ export type UserDb = {
         key: string,
         propertyPath?: string
     ) => Promise<any>;
-    getUserById: (id: string) => Promise<FirebotUser | undefined>;
+    getUserById: (id: string) => Promise<FirebotViewer | undefined>;
     /**
      * Return all users with a username that contains `usernameFragment`.
      * @param usernameFragment the username should contain.
      */
     searchUsers: (
         usernameFragment: string
-    ) => Promise<FirebotUser[] | undefined>;
+    ) => Promise<FirebotViewer[] | undefined>;
     /**
      * Returns the top users with the most view time.
      * @param count how many users should be returned.
@@ -93,5 +92,5 @@ export type UserDb = {
         count: number
     ) => Promise<Array<{ username: string; minutesInChannel: number }>>;
     getUserOnlineMinutes: (username: string) => Promise<number>;
-    getOnlineUsers: () => Promise<FirebotUser[]>;
+    getOnlineUsers: () => Promise<FirebotViewer[]>;
 };

@@ -7,8 +7,12 @@ import { FirebotSettings } from "./settings";
 import { CommandManager } from "./modules/command-manager";
 import { CounterManager } from "./modules/counter-manager";
 import { CurrencyAccess } from "./modules/currency-access";
+import { CurrencyCommandManager } from "./modules/currency-command-manager";
 import { CurrencyDB } from "./modules/currency-db";
-import { CurrencyManager } from "./modules/currency-manager";
+import {
+    CurrencyManager,
+    CurrencyManagerNew,
+} from "./modules/currency-manager";
 import { CustomVariableManager } from "./modules/custom-variable-manager";
 import { EffectManager } from "./modules/effect-manager";
 import { EffectRunner } from "./modules/effect-runner";
@@ -65,7 +69,8 @@ export type ScriptModules = {
     conditionManager: ConditionManager;
     counterManager: CounterManager;
     currencyAccess: CurrencyAccess;
-    currencyManager: CurrencyManager;
+    currencyCommandManager: CurrencyCommandManager;
+    currencyManagerNew: CurrencyManagerNew;
     customVariableManager: CustomVariableManager;
     effectManager: EffectManager;
     effectRunner: EffectRunner;
@@ -101,8 +106,11 @@ export type ScriptModules = {
     utils: Utils;
     /** Remove the below line after we have all modules defined */
     [x: string]: unknown;
-    /** @deprecated */
+
+    /** @deprecated @see {@link ScriptModules.currencyAccess} @see {@link ScriptModules.currencyManagerNew} */
     currencyDb: CurrencyDB;
+    /** @deprecated @see {@link ScriptModules.currencyCommandManager} @see {@link ScriptModules.currencyManagerNew} */
+    currencyManager: CurrencyManager;
 };
 
 type ValidParamKeys<T> = {

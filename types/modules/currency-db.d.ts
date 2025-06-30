@@ -1,5 +1,5 @@
 import { Currency } from "./currency-access";
-import { FirebotUser } from "./user-db";
+import { FirebotViewer } from "./user-db";
 
 type CurrencyAdjustType = "set" | "adjust";
 
@@ -37,9 +37,9 @@ export type CurrencyDB = {
     getTopCurrencyHolders: (
         currencyId: string,
         count: number
-    ) => Promise<Array<FirebotUser>>;
+    ) => Promise<Array<FirebotViewer>>;
     getTopCurrencyPosition: (
         currencyId: string,
         position?: number
-    ) => Promise<FirebotUser | undefined>;
+    ) => Promise<FirebotViewer | undefined>;
 };
