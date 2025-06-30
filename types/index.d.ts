@@ -13,6 +13,7 @@ import {
     CurrencyManager,
     CurrencyManagerNew,
 } from "./modules/currency-manager";
+import { CustomRolesManager } from "./modules/custom-roles-manager";
 import { CustomVariableManager } from "./modules/custom-variable-manager";
 import { EffectManager } from "./modules/effect-manager";
 import { EffectRunner } from "./modules/effect-runner";
@@ -71,6 +72,7 @@ export type ScriptModules = {
     currencyAccess: CurrencyAccess;
     currencyCommandManager: CurrencyCommandManager;
     currencyManagerNew: CurrencyManagerNew;
+    customRolesManager: CustomRolesManager;
     customVariableManager: CustomVariableManager;
     effectManager: EffectManager;
     effectRunner: EffectRunner;
