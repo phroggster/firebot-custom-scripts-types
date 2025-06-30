@@ -81,7 +81,6 @@ export type ScriptModules = {
     frontendCommunicator: FrontendCommunicator;
     fs: typeof FSExtra;
     gameManager: GameManager;
-    howler: unknown;
     httpServer: HttpServerManager;
     integrationManager: IntegrationManager;
     JsonDb: typeof JsonDB;
@@ -111,6 +110,8 @@ export type ScriptModules = {
     currencyDb: CurrencyDB;
     /** @deprecated @see {@link ScriptModules.currencyCommandManager} @see {@link ScriptModules.currencyManagerNew} */
     currencyManager: CurrencyManager;
+    /** @deprecated Removed in Firebot v5.64 (#2938) */
+    howler?: unknown;
 };
 
 type ValidParamKeys<T> = {
