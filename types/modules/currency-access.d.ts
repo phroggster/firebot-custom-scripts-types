@@ -1,6 +1,6 @@
 import type { JsonDB } from "node-json-db";
 import type { TypedEmitter } from "tiny-typed-emitter";
-import type { FirebotViewer } from "./user-db";
+import type { FirebotViewer } from "../viewer";
 
 export type Currency = {
     /** The unique identifier of the currency. */

@@ -40,6 +40,9 @@ import { ReplaceVariableFactory } from "./modules/replace-variable-factory";
 import { ParametersConfig } from "./modules/firebot-parameters";
 import { NotificationManager } from "./modules/notification-manager";
 import { UIExtensionManager } from "./modules/ui-extension-manager";
+import { ViewerDatabase } from "./modules/viewer-database";
+import { ViewerMetadataManager } from "./modules/viewer-metadata-manager";
+import { ViewerOnlineStatusManager } from "./modules/viewer-online-status-manager";
 
 export type UserAccount = {
     username: string;
@@ -103,8 +106,10 @@ export type ScriptModules = {
     twitchChat: TwitchChat;
     /** Added in Firebot v5.64 */
     uiExtensionManager?: UIExtensionManager;
-    userDb: UserDb;
     utils: Utils;
+    viewerDatabase: ViewerDatabase;
+    viewerMetadataManager: ViewerMetadataManager;
+    viewerOnlineStatusManager: ViewerOnlineStatusManager;
     /** Remove the below line after we have all modules defined */
     [x: string]: unknown;
 
@@ -114,8 +119,15 @@ export type ScriptModules = {
     currencyDb: CurrencyDB;
     /** @deprecated @see {@link ScriptModules.currencyCommandManager} @see {@link ScriptModules.currencyManagerNew} */
     currencyManager: CurrencyManager;
-    /** @deprecated Removed in Firebot v5.64 (#2938) */
+    /** @deprecated @obsolete Removed in Firebot v5.64 (#2938) */
     howler?: unknown;
+    /**
+     * @deprecated
+     * @see {@link ScriptModules.viewerDatabase}
+     * @see {@link ScriptModules.viewerMetadataManager}
+     * @see {@link ScriptModules.viewerOnlineStatusManager}
+     */
+    userDb: UserDb;
 };
 
 type ValidParamKeys<T> = {

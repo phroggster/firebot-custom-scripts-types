@@ -1,12 +1,5 @@
 import type { TypedEmitter } from "tiny-typed-emitter";
-
-type BasicViewer = {
-    id: string;
-    username: string;
-    displayName?: string;
-    twitchRoles?: string[];
-    profilePicUrl?: string;
-};
+import type { BasicViewer } from "../viewer";
 
 interface ChatEvents {
     "connected": () => void;

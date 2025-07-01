@@ -1,5 +1,5 @@
 import type { CurrencyCommandManager } from "./currency-command-manager";
-import type { FirebotViewer } from "./user-db";
+import type { FirebotViewer } from "../viewer";
 
 type CurrencyAdjustType = "set" | "adjust";
 

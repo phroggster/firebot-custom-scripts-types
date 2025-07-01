@@ -1,13 +1,6 @@
 import type { TypedEmitter } from "tiny-typed-emitter";
+import type { BasicViewer } from "../viewer";
 
-type BasicViewer = {
-    /** The user's globally-unique identifier. */
-    id: string;
-    /** The formatted display name of the viewer. */
-    displayName?: string;
-    /** The viewer's unique username. */
-    username: string;
-};
 type CustomRoleInfo = {
     /** The unique identifier of the custom role. */
     id: string;
@@ -16,7 +9,7 @@ type CustomRoleInfo = {
 };
 type CustomRole = CustomRoleInfo & {
     /** The list of viewers that are a member of the custom role. */
-    viewers: Array<BasicViewer>;
+    viewers: Array<Pick<BasicViewer, "displayName" | "id" | "username">>;
 };
 
 interface CustomRoleManagerEvents {

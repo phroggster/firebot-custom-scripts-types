@@ -1,32 +1,10 @@
-export type FirebotViewer = {
-    readonly _id: string;
-    username: string;
-    displayName?: string;
-    profilePicUrl?: string;
-    twitch: boolean;
-    twitchRoles: string[];
-    online: boolean;
-    /** Timestamp value */
-    onlineAt: number;
-    /** Timestamp value */
-    lastSeen: number;
-    /** Timestamp value */
-    joinDate: number;
-    minutesInChannel: number;
-    chatMessages: number;
-    disableAutoStatAccrual: boolean;
-    disableActiveUserList: boolean;
-    /** Allows storing arbitrary objects as additional data in key-value pairs into the user object in the database. */
-    metadata: Record<string, any>;
-    /** Maps currency-id to the amount the user has. */
-    currency: Record<string, number>;
-    ranks?: Record<string, string>;
-};
+import type { FirebotViewer } from "../viewer";
 
+/** @deprecated */
 export type UserDb = {
     getTwitchUserByUsername: (
         username: string
-    ) => Promise<FirebotViewer | null>;
+    ) => Promise<FirebotViewer | undefined>;
     /**
      * Creates a new user in the database. Returns the created user if successful.
      *
@@ -35,16 +13,16 @@ export type UserDb = {
      * @param displayName Twitch display name
      * @param profilePicUrl Profile pic URL, if available
      * @param twitchRoles List of role strings, if applicable
-     * @param isOnline Whether the user is currently online, defaults to false
+     * @param isOnline Whether the user is currently online, defaults to false @default false
      */
     createNewUser: (
         userId: string,
         username: string,
-        displayName: string,
+        displayName?: string,
         profilePicUrl?: string,
         twitchRoles?: string[],
         isOnline?: boolean
-    ) => Promise<FirebotViewer | null>;
+    ) => Promise<FirebotViewer | undefined>;
     /**
      * Updates the given user in the database. Returns true if successful.
      * @param user that should be updated.
