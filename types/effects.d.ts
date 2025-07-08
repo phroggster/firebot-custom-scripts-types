@@ -1,4 +1,5 @@
-import ng from "angular";
+import type ng from "angular";
+import type { FirebotChatMessage } from "./chat";
 
 interface EffectScope<EffectModel> extends ng.IScope {
     effect: EffectModel;
@@ -43,7 +44,7 @@ export namespace Effects {
             hotkey?: any;
             command?: any;
             userCommand?: { trigger: string; args: string[] };
-            chatMessage?: any;
+            chatMessage?: FirebotChatMessage;
             event?: { id: string; name: string };
             eventSource?: { id: string; name: string };
             eventData?: Record<string, unknown>;
