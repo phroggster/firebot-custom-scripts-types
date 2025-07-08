@@ -39,6 +39,7 @@ import { IntegrationManager } from "./modules/integration-manager";
 import { ReplaceVariableFactory } from "./modules/replace-variable-factory";
 import { ParametersConfig } from "./modules/firebot-parameters";
 import { NotificationManager } from "./modules/notification-manager";
+import { TimerManager } from "./modules/timer-manager";
 import { UIExtensionManager } from "./modules/ui-extension-manager";
 import { ViewerDatabase } from "./modules/viewer-database";
 import { ViewerMetadataManager } from "./modules/viewer-metadata-manager";
@@ -102,6 +103,7 @@ export type ScriptModules = {
     /** Added in Firebot v5.64/65 (#3180) */
     scriptDataDir?: string;
     spawn: typeof ChildProcess["spawn"];
+    timerManager: TimerManager;
     twitchApi: TwitchApi;
     twitchChat: TwitchChat;
     /** Added in Firebot v5.64 */
