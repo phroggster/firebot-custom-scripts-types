@@ -1,5 +1,4 @@
-import { Effects } from "../effects";
-import Trigger = Effects.Trigger;
+import type { Effects } from "../effects";
 
 type EffectRunnerOutput = {
     success: boolean;
@@ -8,16 +7,15 @@ type EffectRunnerOutput = {
 } | null; // When sending effects to a queue
 
 type ProcessEffectsRequest = {
-    trigger: Trigger;
-    effects: any;
+    trigger: Effects.Trigger;
+    effects: Effects.EffectList;
 };
 
 export type EffectRunner = {
-    /**
-     * Runs effects from the "effect-list" HTML element.
+    /** Asynchronously runs effects from the "effect-list" HTML element.
      * @param processEffectsRequest
      */
-    processEffects: (
+    processEffects(
         processEffectsRequest: ProcessEffectsRequest
-    ) => Promise<EffectRunnerOutput>;
+    ): Promise<EffectRunnerOutput>;
 };
